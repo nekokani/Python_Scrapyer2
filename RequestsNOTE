@@ -1,0 +1,90 @@
+import requests
+
+
+requests.request(method, url=, **kwargs)
+#构造一个请求
+"""
+method = GET,HEAD,POST,PUT,PATCAH,DELETE
+
+**kwargs = params
+    :param 字典或者字节序列，作为参数增加到url中
+        r = requests.reuqest('GET', 'http://python123.io/ws, params = {'key1': 'value1', 
+        'key2': 'value2'}
+        print(r.url)
+        >>>http://python123.io/ws?key1=value1&key2=value2
+            
+    :data 字典、字节序列或文件对象，作为Request的内容
+        r = requests.reuqest('POST', 'http://python123.io/ws, data = {'key1': 'value1', 
+        'key2': 'value2'}
+        r = requests.reuqest('POST', 'http://python123.io/ws, data = '主体内容‘)
+            
+    :json JOSN格式的数据，作为Request内容
+        r = requests.reuqest('POST', 'http://python123.io/ws, json = {'key1': 'value1'})
+        
+    :headers 字典，访问URL的头字段
+        hd = {'user-agent': 'Chrome/10'} 模拟浏览器
+        r = requests.reuqest('POST', 'http://python123.io/ws, headers=hd)
+            
+    :cookies 字典或者Cookiejar, Request中的cookie
+        
+    :auth 元组， 支持HTTP认证功能
+    
+    :files 字典类型， 传输文件
+        fs = {'file': open('data.xls ', 'rb')}
+        r = requests.reuqest('POST', 'http://python123.io/ws', files=fs)
+            
+    :timeout 以秒为点位，设定超时时间
+        r = requests.reuqest('GET', 'http://python123.io/ws, timeout=10)
+        
+    :proxies 字典类型，设定代理服务器，可以增加登陆认证，可以隐藏源IP
+        pxs = {'http': 'http://user:pass@10.10.1:1234'
+                'https': 'https://10.10.1:1234'}
+                r = requests.reuqest('GET','http://www.baidu.com', proxies=pxs)
+        
+    :allow_redirects 布尔类型，默认为TURE，重定向开关
+        
+    :stream 布尔类型，默认为TURE，立即下载开关
+        
+    :verify 布尔类型，默认为TURE，认证SSL证书开关
+        
+    :cert 本地SSL证书路径
+        
+"""
+
+requests.get(url, params=None, **kwargs)
+#获取HTML网页的主要方法，对应HTTP的GET
+"""
+:url
+:params url中的额外参数，字典或字节流格式
+"""
+
+requests.head(url, **kwargs)
+#获取HTML网页头部信息的方法，对应HTTP的HEAD
+
+requests.post(url, data=None, json=None, **kwargs)
+#向HTML网页提交POST请求，对应HTTP的POST
+"""
+:url
+:data 字典、字节序列或文件对象，作为Request的内容
+:json JOSN格式的数据，作为Request内容
+"""
+
+requests.put(url, data=None, **kwargs)
+#向向HTML网页提交PUT请求，对应HTTP的PUT
+"""
+:url
+:data 字典、字节序列或文件对象，作为Request的内容
+"""
+
+requests.patch(url, data=None, **kwargs)
+#向HTML网页提交局部修改的请求，对应HTTP的PATCH
+"""
+:url
+:data 字典、字节序列或文件对象，作为Request的内容
+"""
+
+requests.delete(url, **kwargs)
+#向HTML页面提交删除请求，对应HTTP的DELETE
+
+raise_for_staus()
+#get方法得到的对象可以用raise_for_staus()方法获取状态码，如果状态码不是200，则会产生异常
