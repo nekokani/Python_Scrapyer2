@@ -1,0 +1,44 @@
+import requests
+from bs4 import BeautifulSoup
+import bs4
+import re
+
+def getHTMLText(url):
+
+    try:
+        r = requests.get(url, timeout=30)
+        r.raise_for_status()
+        r.encoding = r.apparent_encoding
+        return r.text
+    except TimeoutError:
+        print("Fail to Connect")
+        return ""
+
+
+def fillUnivList(ulist, html):
+    soup = BeautifulSoup(html, 'html.parser')
+    for tr in soup.find('tbody').children:
+        if isinstance(tr, bs4.element.Tag):
+            rank = re.search('\d+',tr.get_text()[0:6]).group()
+            tds = tr.find_all('td')
+            ulist.append([rank, tds[1].string, tds[3].string])
+    return ulist
+
+
+def printUnivList(ulist, num):
+    tab = "{0:^10}\t\t\t{1:^10}\t\t\t{2:^10}"
+    print(tab.format("排名", "学校名称", "总分"), chr(12288))
+    for i in ulist:
+        print(tab.format(i[0], i[1], i[2]), chr(12288))
+
+
+
+def main():
+    uinfo = []
+    url = 'http://www.zuihaodaxue.cn/zuihaodaxuepaiming2017.html'
+    html = getHTMLText(url)
+    fillUnivList(uinfo, html)
+
+
+if __name__ == '__main__':
+    main()
